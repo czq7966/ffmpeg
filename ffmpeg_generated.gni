@@ -689,7 +689,9 @@ if ((is_win && current_cpu == "arm64" && ffmpeg_branding == "Chrome") ||
   ]
 }
 
-if (use_linux_config && current_cpu == "arm" && arm_use_neon) {
+if ((use_linux_config && current_cpu == "arm" && arm_use_neon) || 
+
+    (is_android && current_cpu == "arm" && arm_use_neon)) {
   ffmpeg_c_sources += [
     "libavcodec/arm/hpeldsp_init_neon.c",
     "libavcodec/arm/vp8dsp_init_neon.c",
@@ -744,7 +746,10 @@ if ((use_linux_config && current_cpu == "arm" && arm_use_neon && ffmpeg_branding
 }
 
 if ((use_linux_config && current_cpu == "arm" && arm_use_neon && ffmpeg_branding == "Chrome") || 
-    (use_linux_config && current_cpu == "arm" && arm_use_neon && ffmpeg_branding == "ChromeOS")) {
+    (use_linux_config && current_cpu == "arm" && arm_use_neon && ffmpeg_branding == "ChromeOS") ||
+    
+    (is_android && current_cpu == "arm" && arm_use_neon && ffmpeg_branding == "Chrome") || 
+    (is_android && current_cpu == "arm" && arm_use_neon && ffmpeg_branding == "ChromeOS")) {
   ffmpeg_gas_sources += [
     "libavcodec/arm/h264cmc_neon.S",
     "libavcodec/arm/h264dsp_neon.S",
