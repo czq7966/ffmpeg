@@ -790,13 +790,18 @@ AVCodec * codec_list[] = {
 #else
 #include "libavcodec/codec_list.c"
 #endif
+#define ANDROID_LOG_TAG "FFMPEG----"
+#include <android/log.h>
+#define ANDROID_LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, ANDROID_LOG_TAG, __VA_ARGS__)
 
 static AVOnce av_codec_static_init = AV_ONCE_INIT;
 static void av_codec_init_static(void)
 {
     for (int i = 0; codec_list[i]; i++) {
-        if (codec_list[i]->init_static_data)
+        if (codec_list[i]->init_static_data) {
+            ANDROID_LOGD(codec_list[i]->name);
             codec_list[i]->init_static_data((AVCodec*)codec_list[i]);
+        }
     }
 }
 
