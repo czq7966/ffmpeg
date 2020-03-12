@@ -799,7 +799,7 @@ static void av_codec_init_static(void)
 {
     for (int i = 0; codec_list[i]; i++) {
         if (codec_list[i]->init_static_data) {
-            ANDROID_LOGD(codec_list[i]->name);
+            ANDROID_LOGD("%s", codec_list[i]->name);
             codec_list[i]->init_static_data((AVCodec*)codec_list[i]);
         }
     }
